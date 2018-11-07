@@ -1,0 +1,76 @@
+extends layout
+
+block content
+  h1 #{title}
+  ul.list-group
+    each article, i in articles
+      li.list-group-item
+        a(href="/articles/"+article._id)= article.title        
+  br
+  script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+  .row
+    .col-4
+      #myList.list-group(role='tablist')
+        each article, i in articles
+          a#list-home-list.list-group-item.list-group-item-action(data-toggle='list', role='tab', href='#list-home', aria-controls='home', data-id="servus")= article.title
+    .col-8
+      each article, i in articles
+        #nav-tabContent
+          <!--if onclick-->
+            ul#list-home.tab-pane.fade.active.show(href="#article.body")
+              a#active.show(href='#list-home')= article.body
+              //a(onclick="#active.show(href='#list-home')")= article.body
+  br
+  .row
+    .col-4
+      #myList.list-group(role='tablist')
+      a.list-group-item.list-group-item-action.active(data-toggle='list', href='#home', role='tab') Kuh
+      a.list-group-item.list-group-item-action(data-toggle='list', href='#profile', role='tab') Profile
+      a.list-group-item.list-group-item-action(data-toggle='list', href='#messages', role='tab') Messages
+      a.list-group-item.list-group-item-action(data-toggle='list', href='#settings', role='tab') Settings
+    // Tab panes
+    .col-8
+      .tab-content
+        each article, i in articles
+          script.
+              $('#myList a').on('click', function (e) {
+                  e.preventDefault()
+                  $(this).tab('active')
+                })
+                $('#myList a[href="#profile"]').tab('show') // Select tab by name
+                $('#myList a:first-child').tab('active') // Select first tab
+                $('#myList a:last-child').tab('active') // Select last tab
+                $('#myList a:nth-child(3)').tab('show') // Select third tab
+          #home.tab-pane.active(role='tabpanel') Hi
+          script.
+            $('#myList a[href="#profile"]').tab('active') // Select tab by name
+          #profile.tab-pane(role='tabpanel')= article.title
+          script.
+            $('#myList a:first-child').tab('active') // Select first tab
+          #messages.tab-pane(role='tabpanel') Servus
+          #settings.tab-pane(role='tabpanel')= article.title
+          script.
+            $('#myList a:nth-child(3)').tab('show') // Select third tab
+  .col-4  
+    #myList.list-group(role='tablist')
+      a.list-group-item.list-group-item-action.active(data-toggle='list', href='#home', role='tab') Kuh
+      a.list-group-item.list-group-item-action(data-toggle='list', href='#profile', role='tab') Profile
+      a.list-group-item.list-group-item-action(data-toggle='list', href='#messages', role='tab') Messages
+      a.list-group-item.list-group-item-action(data-toggle='list', href='#settings', role='tab') Settings
+    .tab-content
+      #home.tab-pane.active(role='tabpanel') ...
+      #profile.tab-pane(role='tabpanel') ...
+      #messages.tab-pane(role='tabpanel') ...
+      #settings.tab-pane(role='tabpanel') ...
+  .col-8
+    script.
+      $(function () {
+      $('#myList a:last-child').tab('show')
+      $('#myList a:nth-child(3)').tab('show') // Select third tab
+      $('#myList a[href="#profile"]').tab('show') // Select tab by name
+      })
+            
+      
+            
+    
+
